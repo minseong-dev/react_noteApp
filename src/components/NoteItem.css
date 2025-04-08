@@ -1,0 +1,34 @@
+.NoteItem * {
+    margin: 0px;
+}
+
+.NoteItem {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.NoteItem .note_wrapper {
+    width: calc(100% - 80px);
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.NoteItem .note_wrapper p {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.NoteItem .date_wrapper {
+    min-width: 80px;
+}
+.NoteItem .date_wrapper p {
+    text-align: right;
+    font-size: 12px;
+}
