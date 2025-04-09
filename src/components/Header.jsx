@@ -1,9 +1,11 @@
 import "./Header.css";
 
-const Header = () => {
+const Header = ({ leftChild }) => {
     return (
         <div className="Header">
-            <h1>Notes</h1>
+            <div className="Header_left">{leftChild}</div>
+            <div className="Header_center">Simple Notes</div>
+            <div className="Header_right"></div>
         </div>
     );
 };

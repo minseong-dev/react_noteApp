@@ -58,27 +58,30 @@ const Home = () => {
     const filteredData = getFilteredData();
 
     return (
-        <div className="Home">
-            <div className="menu_bar">
-                <input
-                    value={search}
-                    onChange={onChangeSearch}
-                    placeholder="검색어를 입력하세요"
-                />
-                <select value={sortOrder} onChange={onChangeSortOrder}>
-                    <option value={"latest"}>최신순</option>
-                    <option value={"oldest"}>오래된 순</option>
-                </select>
+        <>
+            <Header />
+            <div className="Home">
+                <div className="menu_bar">
+                    <input
+                        value={search}
+                        onChange={onChangeSearch}
+                        placeholder="검색어를 입력하세요"
+                    />
+                    <select value={sortOrder} onChange={onChangeSortOrder}>
+                        <option value={"latest"}>최신순</option>
+                        <option value={"oldest"}>오래된 순</option>
+                    </select>
+                </div>
+                <div className="list_wrapper">
+                    {filteredData.map((item) => (
+                        <NoteItem key={item.id} {...item} />
+                    ))}
+                </div>
+                <div className="button_wrapper">
+                    <Button text="추가" />
+                </div>
             </div>
-            <div className="list_wrapper">
-                {filteredData.map((item) => (
-                    <NoteItem key={item.id} {...item} />
-                ))}
-            </div>
-            <div className="button_wrapper">
-                <Button text="추가" />
-            </div>
-        </div>
+        </>
     );
 };
 

@@ -1,8 +1,22 @@
 .Header {
+    display: flex;
     margin-bottom: 20px;
 }
 
-.Header > h1 {
+.Header .Header_left {
+    width: 25%;
+    justify-content: flex-start;
+}
+
+.Header .Header_center {
+    width: 50%;
+    justify-content: center;
     font-size: 36px;
-    margin: 0px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.Header .Header_right {
+    width: 25%;
+    justify-content: flex-end;
 }
