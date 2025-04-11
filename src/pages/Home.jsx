@@ -3,11 +3,13 @@ import Button from "../components/Button";
 import NoteItem from "../components/NoteItem";
 import { useState, useContext } from "react";
 import { NoteStateContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const data = useContext(NoteStateContext);
     const [search, setSearch] = useState("");
     const [sortOrder, setSortOrder] = useState("latest");
+    const nav = useNavigate();
 
     const onChangeSearch = (e) => {
         setSearch(e.target.value);
@@ -58,7 +60,11 @@ const Home = () => {
                     ))}
                 </div>
                 <div className="button_wrapper">
-                    <Button text="추가" type="POSITIVE" />
+                    <Button
+                        onClick={() => nav("/note")}
+                        text="추가"
+                        type="POSITIVE"
+                    />
                 </div>
             </div>
         </>

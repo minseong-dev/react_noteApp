@@ -88,7 +88,9 @@ function App() {
                     >
                         <Routes>
                             <Route path="/" element={<Home />} />
-                            <Route path="/note/:id" element={<Note />} />
+                            <Route path="/note" element={<Note />}>
+                                <Route path=":id" element={<Note />} />
+                            </Route>
                         </Routes>
                     </NoteDispatchContext.Provider>
                 </NoteStateContext.Provider>

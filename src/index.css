@@ -128,7 +128,12 @@ body * {
     box-sizing: border-box;
 }
 
-.Note .button_bottom {
+.Note .button_bottom_edit {
     display: flex;
     justify-content: space-between;
+}
+
+.Note .button_bottom_new {
+    display: flex;
+    justify-content: flex-end;
 }
