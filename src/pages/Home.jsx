@@ -1,31 +1,11 @@
 import Header from "../components/Header";
 import Button from "../components/Button";
 import NoteItem from "../components/NoteItem";
-import { useState } from "react";
-
-const mockData = [
-    {
-        id: 1,
-        createdDate: new Date("2025-04-08").getTime(),
-        title: "1",
-        content: "1번 메모 내용",
-    },
-    {
-        id: 2,
-        createdDate: new Date("2025-04-08").getTime(),
-        title: "2",
-        content: "2번 메모 내용",
-    },
-    {
-        id: 3,
-        createdDate: new Date("2025-04-08").getTime(),
-        title: "3",
-        content: "3번 메모 내용",
-    },
-];
+import { useState, useContext } from "react";
+import { NoteStateContext } from "../App";
 
 const Home = () => {
-    const [data, setData] = useState(mockData);
+    const data = useContext(NoteStateContext);
     const [search, setSearch] = useState("");
     const [sortOrder, setSortOrder] = useState("latest");
 
@@ -78,7 +58,7 @@ const Home = () => {
                     ))}
                 </div>
                 <div className="button_wrapper">
-                    <Button text="추가" />
+                    <Button text="추가" type="POSITIVE" />
                 </div>
             </div>
         </>

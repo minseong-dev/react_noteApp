@@ -1,8 +1,11 @@
 import "./NoteItem.css";
+import { useNavigate } from "react-router-dom";
 
 const NoteItem = ({ id, createdDate, title, content }) => {
+    const nav = useNavigate();
+
     return (
-        <div className="NoteItem">
+        <div className="NoteItem" onClick={() => nav(`/note/${id}`)}>
             <div className="note_wrapper">
                 <h2>{title}</h2>
                 <p>{content}</p>
