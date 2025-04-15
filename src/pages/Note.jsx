@@ -3,6 +3,59 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import { useState, useContext, useEffect } from "react";
 import { NoteStateContext, NoteDispatchContext } from "../App";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+    flex: 1;
+
+    width: 100%;
+    height: calc(100% - 63px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+`;
+
+const TitleWrapper = styled.div`
+    display: flex;
+`;
+
+const TitleInput = styled.input`
+    flex: 1;
+    background-color: #dadada;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+`;
+
+const ContentWrapper = styled.div`
+    flex: 1;
+    width: 100%;
+    height: 100%;
+`;
+
+const ContentTextarea = styled.textarea`
+    background-color: #dadada;
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    box-sizing: border-box;
+`;
+
+const BtnBottomEdit = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const BtnBottomNew = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`;
 
 const Note = () => {
     const params = useParams();
@@ -59,28 +112,28 @@ const Note = () => {
     return (
         <>
             <Header />
-            <div className="Note">
-                <div className="button_top">
+            <Wrapper>
+                <div>
                     <Button onClick={() => nav(-1)} text={"뒤로"} type={""} />
                 </div>
-                <div className="title_wrapper">
-                    <input
+                <TitleWrapper>
+                    <TitleInput
                         onChange={onChangeInputData}
                         name="title"
                         value={inputData.title}
                         placeholder="제목을 입력하세요"
                     />
-                </div>
-                <div className="content_wrapper">
-                    <textarea
+                </TitleWrapper>
+                <ContentWrapper>
+                    <ContentTextarea
                         onChange={onChangeInputData}
                         name="content"
                         value={inputData.content}
                         placeholder="내용을 입력하세요"
                     />
-                </div>
+                </ContentWrapper>
                 {params.id && (
-                    <div className="button_bottom_edit">
+                    <BtnBottomEdit>
                         <Button
                             onClick={onClickDelete}
                             text={"삭제"}
@@ -91,18 +144,18 @@ const Note = () => {
                             text={"수정"}
                             type={"POSITIVE"}
                         />
-                    </div>
+                    </BtnBottomEdit>
                 )}
                 {!params.id && (
-                    <div className="button_bottom_new">
+                    <BtnBottomNew>
                         <Button
                             onClick={onClickCreate}
                             text={"추가"}
                             type={"POSITIVE"}
                         />
-                    </div>
+                    </BtnBottomNew>
                 )}
-            </div>
+            </Wrapper>
         </>
     );
 };

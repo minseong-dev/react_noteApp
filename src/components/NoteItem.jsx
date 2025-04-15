@@ -1,19 +1,57 @@
-import "./NoteItem.css";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+    background-color: #dadada;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: space-between;
+
+    * {
+        margin: 0px;
+    }
+`;
+
+const NoteWrapper = styled.div`
+    width: calc(100% - 80px);
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+`;
+
+const DateWrapper = styled.div`
+    min-width: 80px;
+
+    p {
+        text-align: right;
+        font-size: 12px;
+    }
+`;
 
 const NoteItem = ({ id, createdDate, title, content }) => {
     const nav = useNavigate();
 
     return (
-        <div className="NoteItem" onClick={() => nav(`/note/${id}`)}>
-            <div className="note_wrapper">
+        <Wrapper onClick={() => nav(`/note/${id}`)}>
+            <NoteWrapper>
                 <h2>{title}</h2>
                 <p>{content}</p>
-            </div>
-            <div className="date_wrapper">
+            </NoteWrapper>
+            <DateWrapper>
                 <p>{new Date(createdDate).toLocaleDateString()}</p>
-            </div>
-        </div>
+            </DateWrapper>
+        </Wrapper>
     );
 };
 

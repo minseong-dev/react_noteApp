@@ -2,6 +2,15 @@ import { Routes, Route } from "react-router-dom";
 import { useRef, createContext, useReducer } from "react";
 import Home from "./pages/Home";
 import Note from "./pages/Note";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+`;
 
 const mockData = [
     {
@@ -81,7 +90,7 @@ function App() {
 
     return (
         <>
-            <div className="App">
+            <Wrapper>
                 <NoteStateContext.Provider value={data}>
                     <NoteDispatchContext.Provider
                         value={{ onCreate, onUpdate, onDelete }}
@@ -94,7 +103,7 @@ function App() {
                         </Routes>
                     </NoteDispatchContext.Provider>
                 </NoteStateContext.Provider>
-            </div>
+            </Wrapper>
         </>
     );
 }
