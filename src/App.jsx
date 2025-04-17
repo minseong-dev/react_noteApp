@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useRef, createContext, useReducer } from "react";
+import { useEffect, useRef, createContext, useReducer } from "react";
 import Home from "./pages/Home";
 import Note from "./pages/Note";
 import styled from "styled-components";
@@ -12,50 +12,65 @@ const Wrapper = styled.div`
     flex-direction: column;
 `;
 
-const mockData = [
-    {
-        id: 1,
-        createdDate: new Date("2025-04-08").getTime(),
-        title: "1",
-        content: "1번 메모 내용",
-    },
-    {
-        id: 2,
-        createdDate: new Date("2025-04-08").getTime(),
-        title: "2",
-        content: "2번 메모 내용",
-    },
-    {
-        id: 3,
-        createdDate: new Date("2025-04-08").getTime(),
-        title: "3",
-        content: "3번 메모 내용",
-    },
-];
-
 export const NoteStateContext = createContext();
 export const NoteDispatchContext = createContext();
 
 function reducer(state, action) {
+    let tempData;
+
     switch (action.type) {
+        case "INIT":
+            return action.data;
         case "CREATE":
-            return [action.data, ...state];
+            tempData = [action.data, ...state];
+            break;
         case "UPDATE":
-            return state.map((item) =>
+            tempData = state.map((item) =>
                 String(item.id) === String(action.data.id) ? action.data : item
             );
+            break;
         case "DELETE":
-            return state.filter(
+            tempData = state.filter(
                 (item) => String(item.id) !== String(action.data)
             );
+            break;
         default:
             state;
     }
+
+    localStorage.setItem("notes", JSON.stringify(tempData));
+    return tempData;
 }
 
 function App() {
-    const [data, dispatch] = useReducer(reducer, mockData);
-    const idRef = useRef(4);
+    const [data, dispatch] = useReducer(reducer, []);
+    const idRef = useRef(0);
+
+    useEffect(() => {
+        const storedData = localStorage.getItem("notes");
+        if (!storedData) {
+            return;
+        }
+
+        let parsedData = JSON.parse(storedData);
+        if (!Array.isArray(parsedData)) {
+            return;
+        }
+
+        let maxId = 0;
+        parsedData.forEach((item) => {
+            if (Number(item.id) > Number(maxId)) {
+                maxId = Number(item.id);
+            }
+        });
+
+        idRef.current = maxId + 1;
+
+        dispatch({
+            type: "INIT",
+            data: parsedData,
+        });
+    }, []);
 
     const onCreate = (createdDate, title, content) => {
         dispatch({
