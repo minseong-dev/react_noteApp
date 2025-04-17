@@ -84,8 +84,10 @@ const Home = () => {
         let tempData = data;
 
         if (search !== "") {
-            tempData = tempData.filter((item) =>
-                item.content.toUpperCase().includes(search.toUpperCase())
+            tempData = tempData.filter(
+                (item) =>
+                    item.title.toUpperCase().includes(search.toUpperCase()) ||
+                    item.content.toUpperCase().includes(search.toUpperCase())
             );
         }
 
