@@ -1,10 +1,10 @@
 import Header from "../components/Header";
 import Button from "../components/Button";
 import NoteItem from "../components/NoteItem";
-import { useState, useContext } from "react";
-import { NoteStateContext } from "../App";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
     flex: 1;
@@ -67,7 +67,7 @@ const BtnWrapper = styled.div`
 `;
 
 const Home = () => {
-    const data = useContext(NoteStateContext);
+    const data = useSelector((state) => state.notes);
     const [search, setSearch] = useState("");
     const [sortOrder, setSortOrder] = useState("latest");
     const nav = useNavigate();
@@ -81,7 +81,7 @@ const Home = () => {
     };
 
     const getFilteredData = () => {
-        let tempData = data;
+        let tempData = [...data];
 
         if (search !== "") {
             tempData = tempData.filter(
@@ -91,11 +91,11 @@ const Home = () => {
             );
         }
 
-        if (sortOrder === "latest") {
-            tempData.sort((a, b) => b.createdDate - a.createdDate);
-        } else if (sortOrder === "oldest") {
-            tempData.sort((a, b) => a.createdDate - b.createdDate);
-        }
+        tempData.sort((a, b) =>
+            sortOrder === "latest"
+                ? b.createdDate - a.createdDate
+                : a.createdDate - b.createdDate
+        );
 
         return tempData;
     };

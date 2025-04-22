@@ -1,9 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Button from "../components/Button";
-import { useState, useContext, useEffect } from "react";
-import { NoteStateContext, NoteDispatchContext } from "../App";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+// prettier-ignore
+import { createNote, updateNote, deleteNote } from "../features/noteSlice";
 
 const Wrapper = styled.div`
     flex: 1;
@@ -60,53 +62,62 @@ const BtnBottomNew = styled.div`
 const Note = () => {
     const params = useParams();
     const nav = useNavigate();
-    const data = useContext(NoteStateContext).find(
-        (item) => String(item.id) === String(params.id)
+    const dispatch = useDispatch();
+    const notes = useSelector((state) => state.notes);
+    const nextId = Math.max(...notes.map((note) => Number(note.id)), 0) + 1;
+
+    const targetNote = notes.find(
+        (note) => String(note.id) === String(params.id)
     );
 
     const [inputData, setInputData] = useState({
-        createdDate: new Date().getTime(),
         title: "",
         content: "",
     });
 
     useEffect(() => {
-        if (data) {
+        if (targetNote) {
             setInputData({
-                createdDate: data.createdDate,
-                title: data.title,
-                content: data.content,
+                title: targetNote.title,
+                content: targetNote.content,
             });
         }
-    }, [data]);
-
-    const { onCreate, onUpdate, onDelete } = useContext(NoteDispatchContext);
-
-    const onClickCreate = () => {
-        onCreate(new Date().getTime(), inputData.title, inputData.content);
-        nav(-1, { replace: true });
-    };
-
-    const onClickUpdate = () => {
-        onUpdate(
-            params.id,
-            new Date().getTime(),
-            inputData.title,
-            inputData.content
-        );
-        nav(-1, { replace: true });
-    };
-
-    const onClickDelete = () => {
-        onDelete(params.id);
-        nav(-1, { replace: true });
-    };
+    }, [targetNote]);
 
     const onChangeInputData = (e) => {
         setInputData({
             ...inputData,
             [e.target.name]: e.target.value,
         });
+    };
+
+    const onClickCreate = () => {
+        dispatch(
+            createNote({
+                id: nextId,
+                createdDate: new Date().getTime(),
+                title: inputData.title,
+                content: inputData.content,
+            })
+        );
+        nav(-1, { replace: true });
+    };
+
+    const onClickUpdate = () => {
+        dispatch(
+            updateNote({
+                id: params.id,
+                createdDate: new Date().getTime(),
+                title: inputData.title,
+                content: inputData.content,
+            })
+        );
+        nav(-1, { replace: true });
+    };
+
+    const onClickDelete = () => {
+        dispatch(deleteNote(params.id));
+        nav(-1, { replace: true });
     };
 
     return (
