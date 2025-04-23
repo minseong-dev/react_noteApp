@@ -67,7 +67,7 @@ Redux Toolkit은 내부에 Immer가 내장되어 있어,
 ### 📌 1. 기존 코드 스타일과의 일관성
 
 -   프로젝트 초기에는 `useReducer` + `Context API` 기반으로 상태를 관리했으며,  
-    `spread 연산자`, `Array.map`, `Array.filter` 등을 활용해 명시적으로 불변성을 관리\*\*하던 방식이었습니다.
+    `spread 연산자`, `Array.map`, `Array.filter` 등을 활용해 명시적으로 불변성을 관리하던 방식이었습니다.
 -   Redux 도입 이후에도 기존과 동일한 스타일을 유지하면 이해하기 쉽고, 유지보수도 간편합니다.
 
 ### 📌 2. 명확한 상태 변경 흐름
