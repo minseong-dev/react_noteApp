@@ -25,7 +25,7 @@ src/
 
 -   **React** (with Vite)
 -   **Redux Toolkit**
--   **React Router**
+-   **React Router Dom**
 -   **Styled-components**
 -   **LocalStorage** (데이터 유지용)
 
@@ -97,4 +97,4 @@ Redux Toolkit은 내부에 Immer가 내장되어 있어,
 > 이 프로젝트에서는 **명시적인 불변성 관리 방식**을 선택했습니다.
 
 필요에 따라 언제든 Immer 스타일로 전환이 가능하며,  
-상태 구조가 복잡해지면 유용하게 활용할 수 있습니다. 👍
+상태 구조가 복잡해지면 유용하게 활용할 수 있습니다.
